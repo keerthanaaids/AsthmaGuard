@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>AsthmaGuard</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #101827;
+            color: white;
+        }
+
+        .header {
+            padding: 25px;
+            text-align: center;
+            background: #172235;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .risk {
+            text-align: center;
+            padding: 25px;
+            border-radius: 15px;
+            background: #153c2b;
+            margin-bottom: 20px;
+        }
+
+        .risk h1 {
+            margin: 5px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .card {
+            background: #1c293d;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .value {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .alert {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            background: #5c2020;
+            display: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="header">
+
+    <h1>🫁 AsthmaGuard</h1>
+
+    <p>Wearable Respiratory Monitoring</p>
+
+</div>
+
+
+<div class="container">
+
+
+    <div class="risk">
+
+        <p>Current Risk</p>
+
+        <h1 id="risk">
+            🟢 LOW
+        </h1>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <p>❤️ Heart Rate</p>
+
+            <div class="value"
+                 id="heartRate">
+
+                78 BPM
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <p>🫁 SpO₂</p>
+
+            <div class="value"
+                 id="spo2">
+
+                98%
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <p>🌡️ Temperature</p>
+
+            <div class="value"
+                 id="temperature">
+
+                36.5°C
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <p>🚶 Activity</p>
+
+            <div class="value"
+                 id="activity">
+
+                Resting
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="alert"
+         id="alert">
+
+        <h2>🚨 ALERT</h2>
+
+        <p>
+            Possible respiratory distress
+            pattern detected.
+        </p>
+
+        <button onclick="confirmSafe()">
+            I'M OK
+        </button>
+
+        <button onclick="requestHelp()">
+            GET HELP
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function updateDashboard(
+    heartRate,
+    spo2,
+    temperature,
+    activity,
+    risk
+) {
+
+    document.getElementById(
+        "heartRate"
+    ).innerText =
+        heartRate + " BPM";
+
+
+    document.getElementById(
+        "spo2"
+    ).innerText =
+        spo2 + "%";
+
+
+    document.getElementById(
+        "temperature"
+    ).innerText =
+        temperature + "°C";
+
+
+    document.getElementById(
+        "activity"
+    ).innerText =
+        activity === 0
+        ? "Resting"
+        : "Active";
+
+
+    const riskElement =
+        document.getElementById("risk");
+
+
+    if (risk === "HIGH") {
+
+        riskElement.innerText =
+            "🔴 HIGH";
+
+        document.getElementById(
+            "alert"
+        ).style.display = "block";
+
+    } else {
+
+        riskElement.innerText =
+            "🟢 LOW";
+
+        document.getElementById(
+            "alert"
+        ).style.display = "none";
+    }
+
+}
+
+
+function confirmSafe() {
+
+    document.getElementById(
+        "alert"
+    ).style.display = "none";
+
+    alert(
+        "Status recorded as OK."
+    );
+}
+
+
+function requestHelp() {
+
+    alert(
+        "Emergency contact notification triggered."
+    );
+
+}
+
+
+// Demo abnormal reading
+setTimeout(function() {
+
+    updateDashboard(
+        105,
+        94,
+        36.8,
+        0,
+        "HIGH"
+    );
+
+}, 5000);
+
+</script>
+
+</body>
+
+</html>
